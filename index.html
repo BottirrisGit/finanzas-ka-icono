@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finanzas Ka</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.png">
+  <meta name="theme-color" content="#C9707F">
+  <script>
+    // La app real está en Apps Script (acceso solo para su dueña). Esta página solo da el ícono
+    // al instalarla: abierta como app (?abrir=1) salta directo a la app.
+    const APP_URL = 'https://script.google.com/macros/s/AKfycbzA6FiNHo7pvxJ1N7kBtzpc5f8AgiYpJxdq2gJuHC6EtZuwavn20GiXvZAX1hdfxUDr/exec';
+    if (new URLSearchParams(location.search).has('abrir')) location.replace(APP_URL);
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+  </script>
+  <style>
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+           background: #FBE4E4; color: #3A2A2A; font-family: system-ui, sans-serif; text-align: center; }
+    main { padding: 24px; max-width: 360px; }
+    img { width: 160px; height: 160px; border-radius: 36px; box-shadow: 0 6px 20px rgba(122,58,70,.2); }
+    h1 { font-size: 1.5rem; margin: 20px 0 8px; }
+    p { color: #5A4444; line-height: 1.5; }
+    a.boton { display: inline-block; margin-top: 12px; padding: 12px 24px; border-radius: 999px;
+              background: #C9707F; color: #fff; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="icon-maskable-512.png" alt="">
+    <h1>Finanzas Ka</h1>
+    <p>Para tenerla en el celular: menú <b>⋮</b> → <b>Instalar app</b> o <b>Agregar a pantalla de inicio</b>.</p>
+    <a class="boton" href="./?abrir=1">Abrir la app</a>
+  </main>
+</body>
+</html>
