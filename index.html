@@ -9,9 +9,10 @@
   <meta name="theme-color" content="#C9707F">
   <script>
     // La app real está en Apps Script (acceso solo para su dueña). Esta página solo da el ícono
-    // al instalarla: abierta como app (?abrir=1) salta directo a la app.
+    // al instalarla: abierta como app instalada (standalone) salta directo a la app.
     const APP_URL = 'https://script.google.com/macros/s/AKfycbzA6FiNHo7pvxJ1N7kBtzpc5f8AgiYpJxdq2gJuHC6EtZuwavn20GiXvZAX1hdfxUDr/exec';
-    if (new URLSearchParams(location.search).has('abrir')) location.replace(APP_URL);
+    const instalada = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    if (instalada || new URLSearchParams(location.search).has('abrir')) location.replace(APP_URL);
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
   </script>
   <style>
@@ -21,7 +22,8 @@
     img { width: 160px; height: 160px; border-radius: 36px; box-shadow: 0 6px 20px rgba(122,58,70,.2); }
     h1 { font-size: 1.5rem; margin: 20px 0 8px; }
     p { color: #5A4444; line-height: 1.5; }
-    a.boton { display: inline-block; margin-top: 12px; padding: 12px 24px; border-radius: 999px;
+    [hidden] { display: none !important; }
+    .boton { display: inline-block; border: 0; font-size: 1rem; cursor: pointer; margin-top: 12px; padding: 12px 24px; border-radius: 999px;
               background: #C9707F; color: #fff; text-decoration: none; font-weight: 600; }
   </style>
 </head>
@@ -31,6 +33,14 @@
     <h1>Finanzas Ka</h1>
     <p>Para tenerla en el celular: menú <b>⋮</b> → <b>Instalar app</b> o <b>Agregar a pantalla de inicio</b>.</p>
     <a class="boton" href="./?abrir=1">Abrir la app</a>
+    <p><button id="instalar" class="boton" hidden>Instalar app</button></p>
   </main>
+  <script>
+    // Chrome avisa cuando la página se puede instalar; ahí mostramos un botón directo
+    let aviso;
+    const boton = document.getElementById('instalar');
+    addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); aviso = e; boton.hidden = false; });
+    boton.addEventListener('click', () => { if (aviso) aviso.prompt(); });
+  </script>
 </body>
 </html>
